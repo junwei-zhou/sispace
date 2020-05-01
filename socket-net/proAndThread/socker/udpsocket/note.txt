@@ -1,0 +1,4 @@
+binip
+[*] is the bind ip
+client and server
+[*] is the converstation
