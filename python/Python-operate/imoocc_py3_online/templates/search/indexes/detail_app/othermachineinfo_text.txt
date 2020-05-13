@@ -1,5 +1,0 @@
-{{ object.ip }}
-{{ object.sn_key }}
-{{ object.machine_name }}
-
-
