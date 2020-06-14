@@ -1,0 +1,7 @@
+http://pyecharts.org/#/zh-cn/charts_base?id=line%EF%BC%88%E6%8A%98%E7%BA%BF%E9%9D%A2%E7%A7%AF%E5%9B%BE%EF%BC%89
+
+最大值
+最小值
+平均值
+
+需要设置三条线

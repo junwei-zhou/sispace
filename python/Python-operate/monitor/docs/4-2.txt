@@ -1,0 +1,18 @@
+建立websocket客户端
+
+1.布局，渲染模板index.html，views_index.py操作
+2.配置：模板目录配置、静态目录配置
+
+configs.py
+
+template_path
+static_path
+
+tornado的模板引擎：{{ static_url() }}
+
+
+建立websocket客户端，依赖sockjs-client
+
+1.建立长连接
+2.定义连接函数
+3.定义断开连接函数

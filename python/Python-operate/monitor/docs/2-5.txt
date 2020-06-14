@@ -1,0 +1,10 @@
+设计CPU统计模块
+
+app/models/models.py
+
+分析字段：
+    编号 id 大整型 主键
+    使用率 percent 小数类型 允许为空
+    创建日期 create_date 日期类型
+    创建时间 create_time 时间类型
+    创建日期时间 create_dt 日期时间类型

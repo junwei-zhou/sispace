@@ -1,0 +1,13 @@
+模型生成数据表
+
+net start mysql80 启动mysql服务
+mysql -h主机 -u用户 -P端口 -p 连接mysql数据库
+show databases; 查看数据库
+create database monitor; 创建数据库
+use monitor; 切换到monitor库下面
+show tables; 查看数据表
+
+分析实现思路：
+    1.导入数据库连接驱动
+    2.创建连接引擎（配置mysql数据库连接信息）
+    3.模型映射成数据表

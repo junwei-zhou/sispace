@@ -1,0 +1,8 @@
+按月统计接口
+
+method：month
+format：%Y%m%d
+
+最小值
+最大值
+平均值

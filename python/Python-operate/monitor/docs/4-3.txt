@@ -1,0 +1,6 @@
+CPU平均使用率水球图
+
+1.CPU平均使用率：monitor.py，cpu
+2.水球图：http://pyecharts.org
+
+依赖js：https://www.bootcdn.cn/echarts/

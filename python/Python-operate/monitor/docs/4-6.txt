@@ -1,0 +1,6 @@
+内存/交换分区使用率仪表图
+
+1.内存/交换分区使用率：monitor.py，mem、swap
+2.仪表图：http://pyecharts.org/#/zh-cn/charts_base?id=gauge%EF%BC%88%E4%BB%AA%E8%A1%A8%E7%9B%98%EF%BC%89
+
+依赖js：https://www.bootcdn.cn/echarts/

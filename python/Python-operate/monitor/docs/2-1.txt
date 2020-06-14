@@ -1,0 +1,18 @@
+安装依赖包
+
+    后端框架：tornado
+    数据库连接驱动：mysql-connector-python
+    数据库ORM：sqlalchemy
+    websocket通信：sockjs-tornado
+    获取系统硬件信息：psutil
+    可视化图表分析：pyecharts
+    pyecharts-snapshot
+
+安装的方法
+    pip freeze 查看当前环境下面的所有包
+    pip install -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com -r require
+ments.txt
+
+    -i 指定镜像源
+    --trusted-host 指定信任主机
+    -r 指定依赖文件
