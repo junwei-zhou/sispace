@@ -1,0 +1,500 @@
+    3  git commit -m "the first" 1.txt 
+    4  cat 1.txt 
+    5  echo "2222222" >> 1.txt 
+    6  git status
+    7  git add 1.txt 
+    8  git commit -m "the nd" 1.txt 
+    9  git status
+   10  cat 1.txt 
+   11  echo "333333" >> 1.txt 
+   12  git add 1.txt 
+   13  git commit -m "rd" 1.txt 
+   14  echo "lisi" 1.txt 
+   15  git add 1.txt 
+   16  git commit -m "fourth" 1.txt 
+   17  git status
+   18  git reflog
+   19  git reset --hard 581423e
+   20  cat 1.txt 
+   21  git reset --hard 33c2037
+   22  cat 1.txt 
+   23  git reset --hard 581423e
+   24  cat 1.txt 
+   25  git log --online
+   26  git log --oneline
+   27  git reset --hard HEAD
+   28  cat 1.txt 
+   29  git log --pretty=oneline
+   30  git reflog
+   31  ls
+   32  cat 1.txt 
+   33  rm 1.txt 
+   34  ls
+   35  git status
+   36  git add 1.txt 
+   37  git status
+   38  git commit -m "del" 1.txt 
+   39  git status
+   40  ls
+   41  git reflog
+   42  git reset --hard 581423e
+   43  ls
+   44  cat 1.txt 
+   45  git reflog
+   46  ls
+   47  echo "11111" >> apple.txt
+   48  ls
+   49  cat apple.txt 
+   50  echo "new boy" >> apple.txt 
+   51  git add  apple.txt 
+   52  git commit -m "aple" apple.txt 
+   53  ls
+   54  cat apple.txt 
+   55  ls
+   56  git status
+   57  ls
+   58  vim apple.txt 
+   59  git diff apple.txt
+   60  git branch hot_fix
+   61  git branch -v
+   62  git  checkout hot_fix
+   63  git branch 0v
+   64  git branch -v
+   65  ls
+   66  echo apple.txt 
+   67  cat apple.txt 
+   68  echo "last" >> apple.txt 
+   69  ls
+   70  cat apple.txt 
+   71  git branch -v
+   72  git checkout master
+   73  git merge hot_fix 
+   74  ls
+   75  cat apple.txt 
+   76  cd ~/
+   77  ls
+   78  pwd
+   79  mkdir sispace
+   80  cd sispace/
+   81  git init
+   82  vim simply.txt
+   83  ls
+   84  git add simply.txt 
+   85  git commit -m "the instrution" simply.txt 
+   86  git status
+   87  git remove add origin https://github.com/junwei-zhou/sispace.git
+   88  git remote add origin https://github.com/junwei-zhou/sispace.git
+   89  git remote -v
+   90  git push origin master
+   91  ls
+   92  nkdir temp
+   93  mkdir temp
+   94  ls
+   95  cd temp/
+   96  ls
+   97  echo "register" php.txt
+   98  ls
+   99  echo "register" > php.txt
+  100  ls
+  101  cat php.txt 
+  102  git add php.txt 
+  103  git commit -m "second" php.txt 
+  104  git status
+  105  cd ..
+  106  ls
+  107  git add temp/
+  108  git commit -m "second" temp/
+  109  git push origin master
+  110  ls
+  111  ls
+  112  rm temp/
+  113  rm -r temp/
+  114  ls
+  115  ls
+  116  mkdir python-django
+  117  ls
+  118  cd python-django/
+  119  ls
+  120  ls
+  121  git add django-master/
+  122  git status
+  123  git rm ../temp/php.txt
+  124  ls
+  125  git commit -m "django" django-master/
+  126  git status
+  127  git push origin master
+  128  ls
+  129  cd ..
+  130  ls
+  131  git reflog
+  132  git reset --hard 6f36f3c
+  133  ls
+  134  git reset --hard ca03616
+  135  ls
+  136  git add temp/
+  137  git status
+  138  git push origin master
+  139  git pull origin master
+  140  ls
+  141  git status 
+  142  git add python-django/
+  143  git commit -m "django" python-django/
+  144  git status
+  145  git push origin master
+  146  ls
+  147  git status
+  148  ls
+  149  git add simply-web/
+  150  git commit -m "simply web of jingdong" simply-web/
+  151  ls
+  152  git status
+  153  git push origin master
+  154  ls
+  155  cd ..
+  156  cd sispace/
+  157  ls
+  158  git add -f Python数据结构/
+  159  git status
+  160  ls
+  161  history >> simply
+  162  history >> simply.txt
+  163  git commit -m "data struct about python" Python数据结构/
+  164  git status
+  165  git push origin master
+  166  ls
+  167  git status
+  168  git add simply.txt 
+  169  git status
+  170  ls
+  171  ls
+  172  cd ..
+  173  ls
+  174  cd sispace/
+  175  ls
+  176  git add linux学习笔记/
+  177  git status
+  178  ls
+  179  cat simply
+  180  cat simply.txt 
+  181  git commit -m "linux document" linux学习笔记/
+  182  git status
+  183  ls
+  184  tail simply.txt 
+  185  git push origin master
+  186   ls
+  187  ls
+  188  vim hi.txt
+  189  ls
+  190  cat hi.txt 
+  191  history >> hi.txt 
+  192  vim hi.txt 
+  193  tail hi.txt 
+  194  tail -20 hi.txt 
+  195  echo <<EOF
+  196  a
+  197  b
+  198  c
+  199  eof
+  200  hi.txt 
+  201  ;
+  202  ls
+  203  echo " history"> hi.txt 
+  204  ls
+  205  vim hi.txt 
+  206  vi hi.txt 
+  207  ls
+  208  cat <<eof
+  209  a
+  210  eof
+  211  cat hi.txt <eof
+  212  ls
+  213  cat hi.txt <<eof
+  214  git add
+  215  git status
+  216  git commit -m
+  217  git status
+  218  git push origin master
+  219  eof
+  220  ls
+  221  cat hi.txt 
+  222  history >1.txt|tail 1.txt>>hi.txt 
+  223  ls
+  224  cat hi.txt 
+  225  ll
+  226  rm -f 1.txt 
+  227  ls
+  228  vim hi.txt 
+  229  vim hi.txt 
+  230  ls
+  231  ls
+  232  rm -f simply.txt 
+  233  ls
+  234  ls
+  235  cd ..
+  236  ls
+  237  cd sispace/
+  238  ls
+  239  git add 飞机源码/
+  240  git status
+  241  ls
+  242  cat hi.txt 
+  243  git commit -m "this is game of plan" 飞机源码/
+  244  git status
+  245  git rm simply.txt 
+  246  git status
+  247  git add hi.txt 
+  248  git status
+  249  cat hi.txt 
+  250  git push origin master
+  251  git push origin master
+  252  git push origin master
+  253  ls
+  254  echo "junwei-zhou and GH@t152" >> hi.txt 
+  255  cat hi.txt 
+  256  ls
+  257  git status
+  258  cd ..
+  259  dir
+  260  cd sispace/
+  261  dir
+  262  dir
+  263  git add  机器学习
+  264  git status
+  265  git commit -m "机器学习小普及"  机器学习
+  266  git status
+  267  cat hi.txt 
+  268  git push origin master
+  269  git push origin master
+  270  ls
+  271  cd ..
+  272  cd ..
+  273  ls
+  274  cd junwei_zhou/
+  275  ls
+  276  cd sispace/
+  277  ls
+  278  git add app爬虫的解决思路/
+  279  git status
+  280  git commit -m "app-script" app爬虫的解决思路/
+  281  git status
+  282  cat hi.txt 
+  283  git push origin master
+  284  ls
+  285  ls
+  286  git add 
+  287  git add 
+  288  ls
+  289  git add Python练手课题/
+  290  git status
+  291  git commit -m "python课题" Python练手课题/
+  292  git push origin Python练手课题/
+  293  ls
+  294  ls
+  295  git add .
+  296  git status
+  297  git commit -m "python" .
+  298  git status
+  299  git push origin master
+  300  ls
+  301  ls
+  302  cd ..
+  303  ls
+  304  cd sispace/
+  305  ls
+  306  cd python/
+  307  ls
+  308  cd about-python/
+  309  ls
+  310  cd ..
+  311  cd ..
+  312  l
+  313  ls
+  314  cd linux-notes/
+  315  ls
+  316  ls
+  317  cd ..
+  318  ls
+  319  ls
+  320  cd python/
+  321  ls
+  322  cd ..
+  323  ls
+  324  git add 
+  325  git add .
+  326  ls
+  327  git status
+  328  git commit -m "git 的用法" git/
+  329  ls
+  330  git status
+  331  git push origin master
+  332  ls
+  333  git add git/
+  334  git status
+  335  git push origin master
+  336  cd ..
+  337  cd sispace/
+  338  ls
+  339  ls
+  340  git add .
+  341  git status
+  342  git push origin master
+  343  git push origin master
+  344  git pull origin master
+  345  git pull 
+  346  git pull origin master
+  347  ls
+  348  cd python/
+  349  ls
+  350  cd ..
+  351  ls
+  352  git add linux-notes/
+  353  git status
+  354  cd python/socket-net/
+  355  ls
+  356  vim note 
+  357  git commit "winsocket" note 
+  358  git add note 
+  359  git commit -m "winsocket" note 
+  360  git push origin master
+  361  git status
+  362  cd 
+  363  ls
+  364  cd sispace/
+  365  ls
+  366  git add linux-notes/
+  367  git commit -m "linux" linux-notes/
+  368  git status
+  369  git log
+  370  s
+  371  git gcd
+  372  ls
+  373  ls
+  374  cd ../sispace/
+  375  ls
+  376  git add linux-notes/
+  377  git status
+  378  git commint -m "linux" linux-notes/
+  379  git commit -m "linux" linux-notes/
+  380  git push origin master
+  381  ls
+  382  cd python/
+  383  ls
+  384  cd about-python/
+  385  ls
+  386  cd ..
+  387  ls
+  388  git add about-python/
+  389  git commit -m "python 练手习题" about-python/
+  390  git push origin master
+  391  ls
+  392  cd ..
+  393  ls
+  394  git add python/
+  395  git commit -m "python" python/
+  396  git push origin master
+  397  ls
+  398  git add simply-web/
+  399  git commit -m "web" simply-web/
+  400  git push origin master
+  401  ls
+  402  git add  前端/
+  403  ls
+  404  git status
+  405  git commit -m " 前端"  前端/
+  406  git status
+  407  git push origin master
+  408  git push origin master
+  409  git push origin master
+  410  ls
+  411  git add Python-operate/
+  412  git status
+  413  git commit -m "django+ansible资产管理" Python-operate/
+  414  git stauts
+  415  git statu
+  416  git  status
+  417  git origin push master
+  418  ls
+  419  cat note.txt 
+  420  cd ..
+  421  ls
+  422  git push origin master
+  423  git push origin master
+  424  ls
+  425  git rm -r imoocc_py3_online/
+  426  git rm -r --cached imoocc_py3_online/
+  427  ls
+  428  cd ..
+  429  cd sispace/
+  430  ls
+  431  cd python/
+  432  ls
+  433  cd Python-operate/
+  434  ls
+  435  git rm -r --cached imoocc_py3_online/
+  436  dir
+  437  git rm -r --cached imoocc_py3_online
+  438  git pull origin master
+  439  dir
+  440  git rm -r --cached imoocc_py3_online/
+  441  git rm -r --cached target
+  442  cd ..
+  443  ls
+  444  git pull origin master  
+  445  git rm -r --cached Python-operate/
+  446  git rm -r --cached Python-operate/*
+  447  git rm -r --cached Python-operate
+  448  dir
+  449  git rm -r --cached Python-operate
+  450  git rm -r --cached Python-operate/
+  451  git rm -r --cached Python-operate/*
+  452  git rm -r --cached Python-operate/ *
+  453  git rm -r --cached Python-operate*
+  454  git rm -r --cached Python-operate *
+  455  git log
+  456  cd ../
+  457  git rm -r --cached python/Python-operate/
+  458  git rm -r --cached python/Python-operate/*
+  459  git pull origin master
+  460  ls
+  461  cd oy
+  462  cd python/
+  463  ls
+  464  cd Python-operate/
+  465  ls
+  466  cd imoocc_py3_online/
+  467  ls
+  468  cd script/
+  469  cd ..
+  470  ls
+  471  cd ..
+  472  ls
+  473  cd ..
+  474  ls
+  475  git add Python-operate/
+  476  git status
+  477  git commit -m "django+ansible" Python-operate/
+  478  git push origin master
+  479  ls
+  480  cd Python-operate/
+  481  ls
+  482  git add Python-ansible.rar 
+  483  git status
+  484  git commit -m "django+ansible" Python-ansible.rar 
+  485  git push origin master
+  486  ls
+  487  git add student_info.py 
+  488  git commit -m "python" student_info.py 
+  489  git statua
+  490  git status
+  491  git push origin master
+  492  ls
+  493  git add ftp/
+  494  git status
+  495  git commit -m "python-ftp" ftp/
+  496  git status
+  497  git push origin master
+  498  ls
+  499  git add monitor/
+  500  git commit -m "基于tornado硬件管理系统" monitor/
+  501  git status
+  502  history > 1.txt
