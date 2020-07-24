@@ -1,0 +1,46 @@
+349. 两个数组的交集
+给定两个数组，编写一个函数来计算它们的交集。
+
+示例 1:
+
+输入: nums1 = [1,2,2,1], nums2 = [2,2]
+输出: [2]
+示例 2:
+
+输入: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
+输出: [9,4]
+说明:
+
+输出结果中的每个元素一定是唯一的。
+我们可以不考虑输出结果的顺序。
+
+class Solution:
+    def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        return set(nums1)&set(nums2)
+
+
+class Solution:
+    def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        array = []
+        for m in nums1:
+            if m in nums2 and m not in array:
+                array.append(m)
+        return array
+
+class Solution:
+    def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        hash_dict = {}
+        ans = []
+        for i in nums1:
+            #返回指定键的值，如果值不在字典中返回默认值
+            if hash_dict.get(i) is None:
+                hash_dict[i] = 1
+        for j in nums2:
+            if hash_dict.get(j) is not None:
+                ans.append(j)
+                #去除已经存在的，提高效率
+                hash_dict[j] = None
+        return ans
+
+  
+            

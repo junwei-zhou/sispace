@@ -1,0 +1,23 @@
+1424. 对角线遍历 II
+给你一个列表 nums ，里面每一个元素都是一个整数列表。请你依照下面各图的规则，按顺序返回 nums 中对角线上的整数。
+
+
+
+输入：nums = [[1,2,3],[4,5,6],[7,8,9]]
+输出：[1,4,2,7,5,3,8,6,9]
+
+class Solution:
+    def findDiagonalOrder(self, nums: List[List[int]]) -> List[int]:
+        from collections import defaultdict
+        tmp = defaultdict(list)
+        # 根据主对角线坐标特性，将横纵方向坐标和相同的放在一组
+        for row in range(len(nums)):
+            for col in range(len(nums[row])):
+                tmp[row + col].append(nums[row][col])
+        res = []
+        # 按字典的 key 排序进行遍历，取出的就是按题意由左下到右上方↗一组一组的值
+        for r_plus_c in sorted(list(tmp.keys())):
+            res.extend(tmp[r_plus_c][::-1])  
+            # 由于存的时候是先遍历的存到前面，按题目要求需要返回来，所以取[::-1]
+        return res
+

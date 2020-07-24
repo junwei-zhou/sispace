@@ -1,0 +1,59 @@
+922. 按奇偶排序数组 II
+给定一个非负整数数组 A， A 中一半整数是奇数，一半整数是偶数。
+
+对数组进行排序，以便当 A[i] 为奇数时，i 也是奇数；当 A[i] 为偶数时， i 也是偶数。
+
+你可以返回任何满足上述条件的数组作为答案。
+
+ 
+
+示例：
+
+输入：[4,2,5,7]
+输出：[4,5,2,7]
+解释：[4,7,2,5]，[2,5,4,7]，[2,7,4,5] 也会被接受。
+
+想法：很显然，在原来的基础上直接实现，是很困难的。那么添加一个或者多个辅助的数组呢？
+
+class Solution:
+    def sortArrayByParityII(self, A: List[int]) -> List[int]:
+        p=[]
+        q=[]
+        res=[]
+        for x in A:
+            if x%2==0:
+                p.append(x)
+            else:
+                q.append(x)
+        for i in range(len(p)):
+            res.append(p[i])
+            res.append(q[i])
+        return res
+
+
+class Solution:
+    def sortArrayByParityII(self, A: List[int]) -> List[int]:
+        result = [0]*len(A)
+        odd_index = 1
+        even_index = 0
+        for value in A:
+            if value%2==0:
+                result[even_index] = value
+                even_index += 2
+            else:
+                result[odd_index] = value
+                odd_index += 2
+        return result
+
+class Solution(object):
+    def sortArrayByParityII(self, A):
+        j = 1
+        for i in range(0, len(A), 2):
+            if A[i] % 2:
+                while A[j] % 2:
+                    j += 2
+                A[i], A[j] = A[j], A[i]
+        return A
+
+
+

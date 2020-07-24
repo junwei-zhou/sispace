@@ -1,0 +1,47 @@
+85. 最大矩形
+给定一个仅包含 0 和 1 的二维二进制矩阵，找出只包含 1 的最大矩形，并返回其面积。
+
+示例:
+
+输入:
+[
+  ["1","0","1","0","0"],
+  ["1","0","1","1","1"],
+  ["1","1","1","1","1"],
+  ["1","0","0","1","0"]
+]
+输出: 6
+
+class Solution:
+    def maximalRectangle(self, matrix: List[List[str]]) -> int:
+        if not matrix:
+            return 0
+        # 单调栈的应用 2
+        def getLargestRectLayer(heights):
+            ret = 0
+            stack = []
+            heights = [0] + heights + [0]
+            for i in range(len(heights)):
+                while stack and heights[stack[-1]] > heights[i]:
+                    tmp = stack.pop()
+                    ret = max(ret, (i - stack[-1] - 1) * heights[tmp])
+                stack.append(i)
+            return ret
+        def getHeights(array, heights):
+            for i in range(len(heights)):
+                if array[i] == "1":
+                    heights[i] += 1
+                else:
+                    heights[i]  = 0
+            return heights
+        # 对于每一层 获取heights数组即可
+        ret = 0
+        m = len(matrix)
+        for i in range(m):
+            if i == 0:
+                heights = list(map(int, matrix[0]))
+            else:
+                heights = getHeights(matrix[i], heights)
+            retLayer = getLargestRectLayer(heights)
+            ret = max(ret, retLayer)
+        return ret

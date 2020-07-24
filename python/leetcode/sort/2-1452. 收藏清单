@@ -1,0 +1,32 @@
+1452. 收藏清单
+给你一个数组 favoriteCompanies ，其中 favoriteCompanies[i] 是第 i 名用户收藏的公司清单（下标从 0 开始）。
+
+请找出不是其他任何人收藏的公司清单的子集的收藏清单，并返回该清单下标。下标需要按升序排列。
+
+ 
+
+示例 1：
+
+输入：favoriteCompanies = [["leetcode","google","facebook"],["google","microsoft"],["google","facebook"],["google"],["amazon"]]
+输出：[0,1,4] 
+解释：
+favoriteCompanies[2]=["google","facebook"] 是 favoriteCompanies[0]=["leetcode","google","facebook"] 的子集。
+favoriteCompanies[3]=["google"] 是 favoriteCompanies[0]=["leetcode","google","facebook"] 和 favoriteCompanies[1]=["google","microsoft"] 的子集。
+其余的收藏清单均不是其他任何人收藏的公司清单的子集，因此，答案为 [0,1,4] 。
+
+
+
+class Solution:
+    def peopleIndexes(self, favoriteCompanies: List[List[str]]) -> List[int]:
+        res = []
+        n = len(favoriteCompanies)
+        favoriteCompanies = list(set(f) for f in favoriteCompanies)
+        for i in range(n):
+            for j in range(n):
+                if i != j and favoriteCompanies[i].issubset(
+                        favoriteCompanies[j]):
+                    break
+            else:
+                res.append(i)
+        return res
+

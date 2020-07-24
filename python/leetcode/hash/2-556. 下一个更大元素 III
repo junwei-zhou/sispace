@@ -1,0 +1,37 @@
+556. 下一个更大元素 III
+给定一个32位正整数 n，你需要找到最小的32位整数，其与 n 中存在的位数完全相同，并且其值大于n。如果不存在这样的32位整数，则返回-1。
+
+示例 1:
+
+输入: 12
+输出: 21
+示例 2:
+
+输入: 21
+输出: -1
+
+class Solution:
+    def nextGreaterElement(self, n: int) -> int:
+        nums = [str(i) for i in str(n)]
+        # 初始化 栈
+        stack = []
+        stack.append(nums.pop())
+
+        # 当nums还有数，nums中的最后一个大于栈的最后一个
+        while nums and stack[-1] <= nums[-1]:
+            stack.append(nums.pop())
+        
+        if not nums: return -1
+        
+        # 逐个交换，直到找到更大的
+        for i in range(len(stack)):
+            if stack[i] > nums[-1]:
+                stack[i], nums[-1] = nums[-1], stack[i]
+                break
+        
+        nums += stack
+        ans = ''
+        for ch in nums:
+            ans += str(ch)
+        ans = int(ans)
+        return ans if ans < 2**31-1 else -1

@@ -1,0 +1,49 @@
+206. 反转链表
+反转一个单链表。
+
+示例:
+
+输入: 1->2->3->4->5->NULL
+输出: 5->4->3->2->1->NULL
+进阶:
+你可以迭代或递归地反转链表。你能否用两种方法解决这道题？
+
+
+迭代：
+class Solution(object):
+    def reverseList(self, head):
+
+        # 申请两个链表 一个空链表，一个完整的链表
+        pre = None
+        curr = head
+        while curr:
+            temp = curr.next 
+            curr.next = pre # 将原链表断开
+            pre = curr # 赋值给新链表
+            curr = temp
+        return pre
+
+
+递归：
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def reverseList(self, head: ListNode) -> ListNode:
+        if not head or not head.next:
+            return head
+        nextNode = self.reverseList(head.next)
+        head.next.next = head
+        head.next = None
+        return nextNode
+
+1.递归到head=4时，self.reverse_list得到nextNode为5;
+2.head.next.next = head，(一个next表指向下一个）所以实质上是5->4;
+3.head.next = None表示断开原来4指向5的箭头，依次循环，但每一次都是返回的都是新链表的头5，所以返回的值都是nextNode；
+
+
+

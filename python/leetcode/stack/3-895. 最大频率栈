@@ -1,0 +1,55 @@
+895. 最大频率栈
+实现 FreqStack，模拟类似栈的数据结构的操作的一个类。
+FreqStack 有两个函数：
+push(int x)，将整数 x 推入栈中。
+pop()，它移除并返回栈中出现最频繁的元素。
+如果最频繁的元素不只一个，则移除并返回最接近栈顶的元素。
+示例：
+输入：
+["FreqStack","push","push","push","push","push","push","pop","pop","pop","pop"],
+[[],[5],[7],[5],[7],[4],[5],[],[],[],[]]
+输出：[null,null,null,null,null,null,null,5,7,5,4]
+解释：
+执行六次 .push 操作后，栈自底向上为 [5,7,5,7,4,5]。然后：
+pop() -> 返回 5，因为 5 是出现频率最高的。
+栈变成 [5,7,5,7,4]。
+pop() -> 返回 7，因为 5 和 7 都是频率最高的，但 7 最接近栈顶。
+栈变成 [5,7,5,4]。
+pop() -> 返回 5 。
+栈变成 [5,7,4]。
+pop() -> 返回 4 。
+栈变成 [5,7]。
+
+
+class FreqStack(object):
+
+    def __init__(self):
+    	#统计个数
+        self.freq = collections.Counter()
+        #统计个数，包括空为0
+        self.group = collections.defaultdict(list)
+        self.maxfreq = 0
+
+    def push(self, x):
+    	#统计个数
+        f = self.freq[x] + 1
+        #5:1，给进入的数字打上个数的标签
+        self.freq[x] = f
+        if f > self.maxfreq:
+            self.maxfreq = f
+        self.group[f].append(x)
+
+    def pop(self):
+        x = self.group[self.maxfreq].pop()
+        self.freq[x] -= 1
+        if not self.group[self.maxfreq]:
+            self.maxfreq -= 1
+
+        return x
+
+
+
+
+
+
+

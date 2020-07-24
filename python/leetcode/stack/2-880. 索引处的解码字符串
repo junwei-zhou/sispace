@@ -1,0 +1,35 @@
+880. 索引处的解码字符串
+给定一个编码字符串 S。为了找出解码字符串并将其写入磁带，从编码字符串中每次读取一个字符，并采取以下步骤：
+
+如果所读的字符是字母，则将该字母写在磁带上。
+如果所读的字符是数字（例如 d），则整个当前磁带总共会被重复写 d-1 次。
+现在，对于给定的编码字符串 S 和索引 K，查找并返回解码字符串中的第 K 个字母。
+
+ 
+
+示例 1：
+
+输入：S = "leet2code3", K = 10
+输出："o"
+解释：
+解码后的字符串为 "leetleetcodeleetleetcodeleetleetcode"。
+字符串中的第 10 个字母是 "o"。
+
+class Solution:
+    def decodeAtIndex(self, S: str, k: int) -> str:
+        size = 0
+        for i in S:
+            if i.isdigit():
+                size *= int(i)
+            else:
+                size +=1
+        for i in reversed(S):
+            k %= size
+            if k==0 and i.isalpha():
+                return i
+            if i.isdigit():
+                size /=int(i)
+            else:
+                size -=1
+
+            

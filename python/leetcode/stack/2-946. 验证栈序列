@@ -1,0 +1,43 @@
+946. 验证栈序列
+给定 pushed 和 popped 两个序列，每个序列中的 值都不重复，只有当它们可能是在最初空栈上进行的推入 push 和弹出 pop 操作序列的结果时，返回 true；否则，返回 false 。
+
+ 
+
+示例 1：
+
+输入：pushed = [1,2,3,4,5], popped = [4,5,3,2,1]
+输出：true
+解释：我们可以按以下顺序执行：
+push(1), push(2), push(3), push(4), pop() -> 4,
+push(5), pop() -> 5, pop() -> 3, pop() -> 2, pop() -> 1
+
+class Solution:
+    def validateStackSequences(self, pushed: List[int], popped: List[int]) -> bool:
+        if pushed==[] and popped==[]:
+            return True
+        if len(pushed)!=len(popped):
+            return False
+        stack = []
+        for i in range(len(pushed)):
+            stack.append(pushed[i])
+            while stack and stack[-1]==popped[0]:
+                stack.pop(-1)
+                popped.pop(0)
+        if not stack:
+            return True
+        else:
+            return False
+
+
+
+class Solution:
+    def validateStackSequences(self, pushed, popped):
+        stack=[]
+        j=0
+        for i in range(len(pushed)):
+            stack.append(pushed[i])
+            while len(stack)>0 and stack[-1]==popped[j]:
+                stack.pop()
+                j+=1
+        return len(stack)==0
+

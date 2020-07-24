@@ -1,0 +1,209 @@
+122. 买卖股票的最佳时机 II
+给定一个数组，它的第 i 个元素是一支给定股票第 i 天的价格。
+设计一个算法来计算你所能获取的最大利润。你可以尽可能地完成更多的交易（多次买卖一支股票）。
+注意：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。
+示例 1:
+
+输入: [7,1,5,3,6,4]
+输出: 7
+解释: 在第 2 天（股票价格 = 1）的时候买入，在第 3 天（股票价格 = 5）的时候卖出, 这笔交易所能获得利润 = 5-1 = 4 。
+     随后，在第 4 天（股票价格 = 3）的时候买入，在第 5 天（股票价格 = 6）的时候卖出, 这笔交易所能获得利润 = 6-3 = 3 。
+
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        profit = 0
+        for i in range(1, len(prices)):
+            tmp = prices[i] - prices[i - 1]
+            if tmp > 0: profit += tmp
+        return profit
+
+LeetCode 122：不限交易次数（k=+inf）【二维 DP】
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        n = len(prices)
+        if n<=1: return 0
+        dp = [[None, None] for _ in range(n)]
+        dp[0][0] = 0
+        dp[0][1] = -prices[0]
+'''
+Case 1，今天我没有股票，有两种可能：
+
+昨天我手上就没有股票，今天不做任何操作（rest）；
+昨天我手上有一只股票，今天按照时价卖掉了（sell），收获了一笔钱
+Case 2，今天持有一只股票，有两种可能：
+
+昨天我手上就有这只股票，今天不做任何操作（rest）；
+昨天我没有股票，今天按照时价买入一只（sell），花掉了一笔钱
+'''
+        for i in range(1, n):
+            dp[i][0] = max(dp[i-1][0], dp[i-1][1]+prices[i])
+            dp[i][1] = max(dp[i-1][1], dp[i-1][0]-prices[i])
+
+        return dp[-1][0]    # 返回最后一天且手上没有股票时的获利情况
+
+
+
+309. 最佳买卖股票时机含冷冻期
+给定一个整数数组，其中第 i 个元素代表了第 i 天的股票价格 。​
+
+设计一个算法计算出最大利润。在满足以下约束条件下，你可以尽可能地完成更多的交易（多次买卖一支股票）:
+
+你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。
+卖出股票后，你无法在第二天买入股票 (即冷冻期为 1 天)。
+示例:
+
+输入: [1,2,3,0,2]
+输出: 3 
+解释: 对应的交易状态为: [买入, 卖出, 冷冻期, 买入, 卖出]
+这道题状态转移方程要做修改，如果第 i 天选择买入股票，状态要从第 i-2 的转移，而不是 i-1 (因为第 i-1 天是冷冻期)。另外，由于状态转移方程中出现了 dp[i-2] 推导 dp[i-1]，因此状态边界除了考虑 i=0 天，还要加上 i=1 天的状态。Solution 如下：
+
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        n = len(prices)
+        if n<=1: return 0
+
+        dp = [[None, None] for _ in range(n)]
+        dp[0][0] = 0
+        dp[0][1] = -prices[0]
+        dp[1][0] = max(dp[0][0], dp[0][1]+prices[1])  # 昨天就没有 或者 昨天买入今天卖出
+        dp[1][1] = max(dp[0][1], -prices[1])  # 昨天就有 或者 昨天没有而今天买入
+
+        for i in range(2, n):
+            dp[i][0] = max(dp[i-1][0], dp[i-1][1]+prices[i])
+            dp[i][1] = max(dp[i-1][1], dp[i-2][0]-prices[i])    # 买入股票时注意冷冻期
+
+        return dp[-1][0]
+
+
+714. 买卖股票的最佳时机含手续费
+给定一个整数数组 prices，其中第 i 个元素代表了第 i 天的股票价格 ；非负整数 fee 代表了交易股票的手续费用。
+
+你可以无限次地完成交易，但是你每笔交易都需要付手续费。如果你已经购买了一个股票，在卖出它之前你就不能再继续购买股票了。
+返回获得利润的最大值。
+注意：这里的一笔交易指买入持有并卖出股票的整个过程，每笔交易你只需要为支付一次手续费。
+示例 1:
+
+输入: prices = [1, 3, 2, 8, 4, 9], fee = 2
+输出: 8
+解释: 能够达到的最大利润:  
+在此处买入 prices[0] = 1
+在此处卖出 prices[3] = 8
+在此处买入 prices[4] = 4
+在此处卖出 prices[5] = 9
+总利润: ((8 - 1) - 2) + ((9 - 4) - 2) = 8.
+这道题在 LeetCode 122E 的基础上添加了交易费的要求，可以理解为每次 sell 时要缴纳一定的费用。边界状态保持不变，状态转移方程需要做修改。Solution 如下：
+
+python
+
+class Solution:
+    def maxProfit(self, prices: List[int], fee: int) -> int:
+        n = len(prices)
+        if n<=1: return 0
+
+        dp = [[None, None] for _ in range(n)]
+        dp[0][0] = 0
+        dp[0][1] = -prices[0]
+
+        for i in range(1, n):
+            dp[i][0] = max(dp[i-1][0], dp[i-1][1]+prices[i]-fee)  # 卖出股票时注意要缴手续费
+            dp[i][1] = max(dp[i-1][1], dp[i-1][0]-prices[i])
+        return dp[-1][0]
+
+
+LeetCode 123
+题目约定最多交易次数 k=2，因此交易次数必须作为一个新的维度考虑进 DP Table 里，也就是说，这道题需要三维 DP 来解决。三个维度分别为：天数 i（i=0,1,...,n-1），买入股票的次数 j（j=1,2,...,k）和是否持有股票（1 表持有，0 表不持有）. 特别注意买入股票的次数为 j 时，其实隐含了另一个信息，就是卖出股票的次数为 j-1 或 j 次。
+
+状态转移方程
+
+dp[i][j][0] = max(dp[i-1][j][0], dp[i-1][j][1]+prices[i]) # 右边:今天卖了昨天持有的股票，所以两天买入股票的次数都是j
+dp[i][j][1] = max(dp[i-1][j][1], dp[i-1][j-1][0]-prices[i]) # 右边:昨天没有持股而今天买入一只，故昨天买入的次数是j-1
+注意上面的转移方程只是穷举了第三个维度，要求出整个 DP Table 的状态，需要对 i 和 j 进行遍历。
+
+边界状态
+观察状态转移方程知，边界状态需要考虑两个方面：i=0 和 j=0
+
+
+# j=0 
+for i in range(n):
+    dp[i][0][0] = 0		# 没有买入过股票，且手头没有持股，则获取的利润为0
+    dp[i][0][1] = -float('inf')	# 没有买入过股票，不可能持股，用利润负无穷表示这种不可能
+# i=0
+for j in range(1, k+1):	# 前面j=0已经赋值了，这里j从1开始
+    dp[0][k][0] = 0	
+    dp[0][k][1] = -prices[0]
+特别注意，上述两轮边界定义有交集——dp[0][0][0] 和 dp[0][0][1] ，后者会得到不同的结果，应以 j=0 时赋值结果为准。
+
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        n = len(prices)
+        if n<=1: return 0
+        dp = [[[None, None] for _ in range(3)] for _ in range(n)]  # (n, k+1, 2)
+        
+        # 边界状态需要考虑：1.j=0时对i穷举; 2.i=0时对有效的j穷举(j=1,2)
+        for i in range(n):
+            dp[i][0][0] = 0
+            dp[i][0][1] = -float('inf')
+        for j in range(1, 3):
+            dp[0][j][0] = 0
+            dp[0][j][1] = -prices[0]
+        
+        # 状态转移
+        for i in range(1, n):
+            for j in range(1, 3):
+                dp[i][j][0] = max(dp[i-1][j][0], dp[i-1][j][1]+prices[i])
+                dp[i][j][1] = max(dp[i-1][j][1], dp[i-1][j-1][0]-prices[i])
+        
+        return dp[-1][-1][0]
+
+188. 买卖股票的最佳时机 IV
+给定一个数组，它的第 i 个元素是一支给定的股票在第 i 天的价格。
+
+设计一个算法来计算你所能获取的最大利润。你最多可以完成 k 笔交易。
+
+注意: 你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。
+
+示例 1:
+
+输入: [2,4,1], k = 2
+输出: 2
+解释: 在第 1 天 (股票价格 = 2) 的时候买入，在第 2 天 (股票价格 = 4) 的时候卖出，这笔交易所能获得利润 = 4-2 = 2 。
+示例 2:
+
+输入: [3,2,6,5,0,3], k = 2
+输出: 7
+解释: 在第 2 天 (股票价格 = 2) 的时候买入，在第 3 天 (股票价格 = 6) 的时候卖出, 这笔交易所能获得利润 = 6-2 = 4 。
+     随后，在第 5 天 (股票价格 = 0) 的时候买入，在第 6 天 (股票价格 = 3) 的时候卖出, 这笔交易所能获得利润 = 3-0 = 3 。
+
+有效的交易由买入和卖出构成，至少需要两天；反之，当天买入当天卖出则视为一次无效交易。如果题目给定的最大交易次数 k<=n/2，这个 k 是可以有效约束交易次数的；如果给定的 k>n/2 ，那这个 k 实际上起不到约束作用了，可以认为 k=+inf，本题退化为 LeetCode 122（不限交易次数） 。
+
+题目整体思路是判断 k 和 n/2 的大小关系，两个分支分别用 LeetCode 123 和 LeetCode 122 的代码解决，可有效防止内存超出。
+
+python
+
+class Solution:
+    def maxProfit(self, k: int, prices: List[int]) -> int:
+        n = len(prices)
+        if n <= 1: return 0
+
+        if k >= n//2:   # 退化为不限制交易次数
+            profit = 0
+            for i in range(1, n):
+                if prices[i] > prices[i - 1]:
+                    profit += prices[i] - prices[i - 1]
+            return profit
+
+        else:           # 限制交易次数为k
+            dp = [[[None, None] for _ in range(k+1)] for _ in range(n)]  # (n, k+1, 2)
+            for i in range(n):
+                dp[i][0][0] = 0
+                dp[i][0][1] = -float('inf')
+            for j in range(1, k+1):
+                dp[0][j][0] = 0
+                dp[0][j][1] = -prices[0]
+            for i in range(1, n):
+                for j in range(1, k+1):
+                    dp[i][j][0] = max(dp[i-1][j][0], dp[i-1][j][1] + prices[i])
+                    dp[i][j][1] = max(dp[i-1][j][1], dp[i-1][j-1][0] - prices[i])
+            return dp[-1][-1][0]
+
+

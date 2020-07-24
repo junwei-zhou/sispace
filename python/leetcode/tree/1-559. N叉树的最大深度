@@ -1,0 +1,22 @@
+559. N叉树的最大深度
+给定一个 N 叉树，找到其最大深度。
+
+最大深度是指从根节点到最远叶子节点的最长路径上的节点总数。
+
+例如，给定一个 3叉树 :
+我们应返回其最大深度，3
+
+
+class Solution(object):
+    def maxDepth(self, root):
+        """
+        :type root: Node
+        :rtype: int
+        """
+        if root is None: 
+            return 0 
+        elif root.children == []:
+            return 1
+        else: 
+            height = [self.maxDepth(c) for c in root.children]
+            return max(height) + 1 

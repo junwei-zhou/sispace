@@ -1,0 +1,109 @@
+author:junwei-zhou
+time:2020/5/10
+链接：https://leetcode-cn.com/problems/xu-lie-hua-er-cha-shu-lcof
+请实现两个函数，分别用来序列化和反序列化二叉树。
+
+示例: 
+
+你可以将以下二叉树：
+
+    1
+   / \
+  2   3
+     / \
+    4   5
+
+序列化为 "[1,2,3,null,null,4,5]"
+
+realized:
+方式一：
+class Codec:
+
+    def serialize(self, root):
+        """Encodes a tree to a single string.
+        
+        :type root: TreeNode
+        :rtype: str
+        """
+        res=[]
+        stack=[root]
+        while stack:
+            node=stack.pop()
+            if node:
+                res.append(node.val)
+                stack.append(node.right)
+                stack.append(node.left)
+            else:
+                res.append(None)  
+        return res
+
+    def deserialize(self, data):
+        """Decodes your encoded data to tree.
+        :type data: str
+        :rtype: TreeNode
+        """
+        self.index=0
+        def dfs(data):
+            if data[self.index]==None:
+                self.index+=1
+                return 
+            root=TreeNode(data[self.index])
+            self.index+=1
+            root.left=dfs(data)
+            root.right=dfs(data)
+            return root
+        return dfs(data)
+
+方式二：
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Codec:
+
+    def serialize(self, root):
+        """
+        :type root: TreeNode
+        :rtype: str
+        """
+        def rserialize(root, string):
+            """ a recursive helper function for the serialize() function."""
+            # check base case
+            if root is None:
+                string += 'None,'
+            else:
+                string += str(root.val) + ','
+                string = rserialize(root.left, string)
+                string = rserialize(root.right, string)
+            return string
+        return rserialize(root, '')
+
+        
+    def deserialize(self, data):
+        """Decodes your encoded data to tree.
+        :type data: str
+        :rtype: TreeNode
+        """
+        def rdeserialize(l):
+            """ a recursive helper function for deserialization."""
+            if l[0] == 'None':
+                l.pop(0)
+                return None
+                
+            root = TreeNode(l[0])
+            l.pop(0)
+            root.left = rdeserialize(l)
+            root.right = rdeserialize(l)
+            return root
+
+        data_list = data.split(',')
+        root = rdeserialize(data_list)
+        return root
+
+        
+
+        
+

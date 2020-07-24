@@ -1,0 +1,28 @@
+面试题 16.11. 跳水板
+你正在使用一堆木板建造跳水板。有两种类型的木板，其中长度较短的木板长度为shorter，长度较长的木板长度为longer。你必须正好使用k块木板。编写一个方法，生成跳水板所有可能的长度。
+
+返回的长度需要从小到大排列。
+
+示例：
+
+输入：
+shorter = 1
+longer = 2
+k = 3
+输出： {3,4,5,6}
+
+class Solution:
+    def divingBoard(self, shorter: int, longer: int, k: int) -> List[int]:
+        if k <= 0: return []
+        # 特殊情况加速处理
+        if shorter == longer: return [shorter * k]
+
+        # 长短版的数量随k变化而变化，当 shorter != longer时，会有k+1个不同的结果
+        ans = [0] * (k + 1)
+        for i in range(k + 1):
+            ans[i] = shorter * (k - i) + longer * i 
+        return ans
+
+class Solution:
+    def divingBoard(self, shorter: int, longer: int, k: int) -> List[int]:
+        return [] if not k else [k*shorter] if shorter == longer else [i*longer+(k-i)*shorter for i in range(k+1)]

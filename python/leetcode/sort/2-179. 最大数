@@ -1,0 +1,42 @@
+179. 最大数
+给定一组非负整数，重新排列它们的顺序使之组成一个最大的整数。
+
+示例 1:
+
+输入: [10,2]
+输出: 210
+示例 2:
+
+输入: [3,30,34,5,9]
+输出: 9534330
+说明: 输出结果可能非常大，所以你需要返回一个字符串而不是整数。
+
+class Solution:
+    def largestNumber(self, nums: List[int]) -> str:
+        from functools import cmp_to_key
+        if not nums:
+            return ''
+        nums = map(str, nums)
+        key = cmp_to_key(lambda x, y: int(y + x) - int(x + y))
+        # lstrip() 方法: 截掉字符串左边的空格或指定字符  0012->12
+        res = ''.join(sorted(nums, key=key)).lstrip('0')
+        # 000->''
+        return res or '0'
+
+
+
+class Solution(object):
+    #使用冒泡排序的思想，来排序
+    def largestNumber(self, nums):
+        for i in range(len(nums)):
+            for j in range(len(nums) - i - 1):
+                if str(nums[j]) + str(nums[j + 1]) > str(nums[j + 1]) + str(nums[j]):
+                    nums[j], nums[j + 1] = nums[j + 1], nums[j]
+        s = ''
+        #提前排除非零的情况
+        if nums[-1] == 0:
+            return('0')
+        #防止数字过大，出现错误问题，使用字符串来拼接
+        for i in nums:
+            s = str(i) + s
+        return s

@@ -1,0 +1,49 @@
+请定义一个队列并实现函数 max_value 得到队列里的最大值，要求函数max_value、push_back 和 pop_front 的均摊时间复杂度都是O(1)。
+
+若队列为空，pop_front 和 max_value 需要返回 -1
+
+示例 1：
+
+输入: 
+["MaxQueue","push_back","push_back","max_value","pop_front","max_value"]
+[[],[1],[2],[],[],[]]
+输出: [null,null,null,2,1,2]
+示例 2：
+
+输入: 
+["MaxQueue","pop_front","max_value"]
+[[],[],[]]
+输出: [null,-1,-1]
+
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/dui-lie-de-zui-da-zhi-lcof
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+class MaxQueue:
+
+    def __init__(self):
+        self.q = collections.deque()
+        self.p = collections.deque()
+
+    def max_value(self) -> int:
+        return not self.q and -1 or self.p[0]
+
+    def push_back(self, value: int) -> None:
+        self.q.append(value)
+        while self.p and value > self.p[-1]:
+            del self.p[-1]
+        self.p.append(value)
+
+    def pop_front(self) -> int:
+        if not self.q:
+            return -1
+        self.q[0] == self.p[0] and self.p.popleft()
+        return self.q.popleft()
+
+（1）队列queue正常入队和出队；队列max_queue保存递减元素，出队列中最大值时，从max_queue中弹出首个元素max_queue[0]
+（2）关键在于如何 a）入队和 b）出队 才能保证max_queue是递减队列
+（3）a) 入队时，queue正常入队，max_queue需要判断当前value 与max_queue队尾元素max_queue[-1]的大小，如果value 大于max_queue[-1]，则依次将max_queue的队尾元素弹出，然后添加value
+（4）b) 出队时，queue正常出队，max_queue需要判断，出队的元素是否是最大值，如果queue[0]==max_queue[0],则max_queue 也需要出队
+
+

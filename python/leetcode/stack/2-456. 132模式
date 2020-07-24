@@ -1,0 +1,67 @@
+456. 132模式
+给定一个整数序列：a1, a2, ..., an，一个132模式的子序列 ai, aj, ak 被定义为：当 i < j < k 时，ai < ak < aj。设计一个算法，当给定有 n 个数字的序列时，验证这个序列中是否含有132模式的子序列。
+
+注意：n 的值小于15000。
+
+示例1:
+
+输入: [1, 2, 3, 4]
+
+输出: False
+
+解释: 序列中不存在132模式的子序列。
+示例 2:
+
+输入: [3, 1, 4, 2]
+
+输出: True
+
+解释: 序列中有 1 个132模式的子序列： [1, 4, 2].
+
+
+
+
+方法一：
+参考siyy
+2往1靠。利用前缀栈(minstack)求得每个nums[i]的潜在1，利用这个潜在1维护从后往前遍历的递减栈，找到与1最接近的2，理想状态下nums[i]即为3，将nums[i]与递减栈顶比较，若nums[i]较大，132-pattern找到直接返回True，否则nums[i]入栈，继续查找。
+
+
+class Solution:
+    def find132pattern(self, nums: List[int]) -> bool:
+        minstack=[]
+        n=len(nums)
+        if n<2:return False
+        for i in range(n):
+            if not minstack or nums[i]<minstack[-1]:
+                minstack.append(nums[i])
+            else:
+                minstack.append(minstack[-1])
+        stack=[]
+        for i in range(n-1,-1,-1):
+            if nums[i]==minstack[i]:
+                continue
+            while stack and stack[-1]<=minstack[i]:
+                stack.pop()
+            if stack and stack[-1]<nums[i]:
+                return True
+            stack.append(nums[i])
+        return False
+方法二
+参考powcai
+2往3靠。仅维护从后往前的单调栈，期间维护一个变量存储潜在2,记为second_largest，当nums[i]>栈顶，依次出栈，每次都保证栈顶元素严格小于nums[i],这一过程实际构造了32-pattern，利用潜在2(即second_largest变量)去与新的数（潜在1）比较，若有潜在1<潜在2，132-pattern成立，否则继续维护栈与second_largest。
+
+
+class Solution:
+    def find132pattern(self, nums: List[int]) -> bool:
+        stack=[]
+        second_largest=float('-inf')
+        n=len(nums)
+        if n<2:return False
+        for i in range(n-1,-1,-1):
+            if second_largest>nums[i]:
+                return True
+            while stack and stack[-1]<nums[i]:
+                second_largest=stack.pop()
+            stack.append(nums[i])
+        return False
+

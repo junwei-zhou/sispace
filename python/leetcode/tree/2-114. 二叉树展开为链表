@@ -1,0 +1,80 @@
+114. 二叉树展开为链表
+给定一个二叉树，原地将它展开为一个单链表。
+例如，给定二叉树
+
+    1
+   / \
+  2   5
+ / \   \
+3   4   6
+将其展开为：
+
+1
+ \
+  2
+   \
+    3
+     \
+      4
+       \
+        5
+         \
+          6
+输入
+[1,2,5,3,4,null,6]
+
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+	def flatten(self, root):
+		if not root:
+			return
+		queue = []
+		# 前序遍历整棵二叉树，并将遍历的结果放到数组中
+		def dfs(root):
+			if not root:
+				return
+			queue.append(root)
+			dfs(root.left)
+			dfs(root.right)
+		dfs(root)
+		head = queue.pop(0)
+		head.left = None
+		# 遍历链表，将链表中的TreeNode节点前后串联起来
+		while queue:
+			tmp = queue.pop(0)
+			tmp.left = None
+			head.right,head = tmp,tmp
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+#使用辅助栈，先右后左
+class Solution(object):
+	def flatten(self, root):
+		if not root:
+			return
+		stack = [root]
+		pre = TreeNode(-1)
+		while stack:
+			# 用栈作为辅助数据结构，从栈中弹出元素后
+			# 先将右节点放到栈中，再将左节点放入栈中，模拟前序遍历
+			tmp = stack.pop()
+			pre.left,pre.right = None,tmp
+			# 先放入右节点，再放入左边点，顺序不能反了
+			if tmp.right:
+				stack.append(tmp.right)
+			if tmp.left:
+				stack.append(tmp.left)
+			pre = tmp
+
+
+

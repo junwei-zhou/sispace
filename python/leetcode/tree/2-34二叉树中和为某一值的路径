@@ -1,0 +1,85 @@
+author:junwei-zhou
+time:2020/5/10
+https://leetcode-cn.com/problems/er-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof
+
+describe:
+输入一棵二叉树和一个整数，打印出二叉树中节点值的和为输入整数的所有路径。从树的根节点开始往下一直到叶节点所经过的节点形成一条路径。
+
+ 
+示例:
+给定如下二叉树，以及目标和 sum = 22，
+
+              5
+             / \
+            4   8
+           /   / \
+          11  13  4
+         /  \    / \
+        7    2  5   1
+返回:
+
+[
+   [5,4,11,2],
+   [5,8,4,5]
+]
+
+realized:
+方式一：
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def pathSum(self, root: TreeNode, sum: int) -> List[List[int]]:
+        res,path = [],[]
+        def recur(root,tar):
+            if not root:
+                return
+            path.append(root.val)
+            tar -=root.val
+            if tar==0 and not root.left and not root.right:
+                res.append(list(path))
+            recur(root.left,tar)
+            recur(root.right,tar)
+            path.pop()
+        recur(root,sum)
+        return res
+        
+方式二：
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+
+    def pathSum(self, root: TreeNode, sum1: int) -> List[List[int]]:
+        result,temp = [],[]
+        def dfs(root, sum1):
+            if root:
+                if not root.right and not root.left: #判断是否为叶节点
+                    temp.append(root.val)
+                    b=sum(temp)
+                    if b == sum1:
+                        result.append(temp[0:]) 
+                    temp.pop()
+                    return 
+                temp.append(root.val)# 进栈
+                dfs(root.left, sum1)
+                dfs(root.right, sum1)
+                temp.pop()# 出栈
+        dfs(root, sum1)
+        return result
+
+
+
+
+    
+
+
+        

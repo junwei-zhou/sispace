@@ -1,0 +1,37 @@
+242. 有效的字母异位词
+给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。
+
+示例 1:
+
+输入: s = "anagram", t = "nagaram"
+输出: true
+示例 2:
+
+输入: s = "rat", t = "car"
+输出: false
+说明:
+你可以假设字符串只包含小写字母。
+
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        #使用acsii处理ord() 函数是 chr() 函数（对于8位的ASCII字符串）或 unichr() 函数（对
+        #于Unicode对象）的配对函数，它以一个字符（长度为1的字符串）作为参数，返回对应的    
+        #ASCII 数值，或者 Unicode 数值，
+        return abs(sum([ord(x)**0.5 for x in s])-sum([ord(y)**0.5 for y in t]))<1e-5      
+
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        #使用set与计数的方式处理
+        if len(s) != len(t): return False
+        tmp_set = set(s)
+        if tmp_set == set(t):
+            for i in tmp_set:
+                #注意‘’不在‘’内
+                if s.count(i) != t.count(i):
+                    return False
+            return True
+        return False
+
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        return True if sorted(s)==sorted(t) else False

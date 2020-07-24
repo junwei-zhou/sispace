@@ -1,0 +1,70 @@
+347. 前 K 个高频元素
+给定一个非空的整数数组，返回其中出现频率前 k 高的元素。
+
+ 
+
+示例 1:
+
+输入: nums = [1,1,1,2,2,3], k = 2
+输出: [1,2]
+示例 2:
+
+输入: nums = [1], k = 1
+输出: [1]
+
+使用优先队列：
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        from collections import Counter
+        import heapq
+        count = Counter(nums)   
+        return heapq.nlargest(k, count.keys(), key=count.get)
+
+
+法3-2：优先队列；维护大小为k的堆 -- 时间复杂度O(nlogk)
+当k比较小时合适
+# 优先队列；n + nlogk， 时间复杂度： O(nlogk)
+# 下面只从堆的角度考虑，从m个元素中，通过堆选出最大的k个数
+# k大小的小根堆；堆满后，若新加的数大于堆首数，弹出堆首元素 -- 弹出了m-k个最小的
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        from collections import Counter
+        import heapq as hq
+        lookup = Counter(nums)
+        res = []
+        heap = []
+        for num, freq in lookup.items() :
+            # 如果堆满了（k个元素）
+            if len(heap) == k :
+                # 弹出最小频率的元组
+                if heap[0][0] < freq:
+                    hq.heapreplace(heap, (freq, num))
+            else : 
+                hq.heappush(heap, (freq, num))
+        while heap :
+            res.append(hq.heappop(heap)[1])
+        
+        return res
+法3-3：优先队列；维护大小为n-k的堆 -- 时间复杂度O(nlog(n-k))
+当k比较大时合适
+# 时间复杂度：O(nlog(n-k))；当k和n相当时，用此法
+# 从m个元素中，通过堆选出最大的k个数；m-k 大小的堆 -- 大根堆
+# 堆满后，若新加的数小于堆首数，堆首元素加入结果，否则新加的数加入结果 -- 选了k次最大的
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        from collections import Counter
+        import heapq as hq
+        res = []
+
+        heap = []
+        lookup = Counter(nums)
+        n = len(lookup)
+        for num, freq in lookup.items() :
+            if len(heap) == n-k :
+                if heap and -heap[0][0] > freq :
+                    res.append(hq.heapreplace(heap, (-freq, num))[1])
+                else : res.append(num)
+            else :
+                hq.heappush(heap, (-freq, num))
+        return res
+

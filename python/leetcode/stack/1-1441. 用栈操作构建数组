@@ -1,0 +1,24 @@
+1441. 用栈操作构建数组
+给你一个目标数组 target 和一个整数 n。每次迭代，需要从  list = {1,2,3..., n} 中依序读取一个数字。
+
+请使用下述操作来构建目标数组 target ：
+
+Push：从 list 中读取一个新元素， 并将其推入数组中。
+Pop：删除数组中的最后一个元素。
+如果目标数组构建完成，就停止读取更多元素。
+题目数据保证目标数组严格递增，并且只包含 1 到 n 之间的数字。
+
+class Solution:
+    def buildArray(self, target: List[int], n: int) -> List[str]:
+        result=[]
+        for i in range(1,n+1):   # i 从1 到 n 之间依次生成
+            if len(target)!=0 and i  == target[0]:  #如果 i 跟target中第一个值一样，那么将target中的第一个pop出来 在结果集里 加入push
+                target.pop(0)
+                result.append("Push")
+            elif  len(target)==0: # 如果提前结束了 那么target的值都pop出来了 他的长度就为0  直接break 跳出循环
+                break
+            else:                 # 其他的情况就是 i 与target第一个值不匹配 ，那么在结果集里面输入  push pop 
+                result.append("Push")   
+                result.append("Pop")
+        return result
+

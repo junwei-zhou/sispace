@@ -1,0 +1,60 @@
+1290. 二进制链表转整数
+给你一个单链表的引用结点 head。链表中每个结点的值不是 0 就是 1。已知此链表是一个整数数字的二进制表示形式。
+请你返回该链表所表示数字的 十进制值 。
+
+ 示例 1：
+输入：head = [1,0,1]
+输出：5
+解释：二进制数 (101) 转化为十进制数 (5)
+
+
+使用字符串的形式：
+class Solution:
+    def getDecimalValue(self, head: ListNode) -> int:
+        tmp='0b'
+        while head:
+            tmp += str(head.val)
+            head=head.next
+        return int(tmp,2)
+
+
+
+如果想使用栈的形式，那么就需要处理：
+1）二进制的进位连乘
+2）区分0与1的情况
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def getDecimalValue(self, head: ListNode) -> int:
+        cur = head
+        ans = count = 0
+        stack = []
+        while cur:
+            stack.append(cur.val)
+            cur = cur.next
+        while stack:
+            top = stack.pop()
+            if top == 1:
+                ans = ans + pow(2, count)   
+            count += 1 
+        return ans
+
+二进制移位处理
+class Solution:
+    def getDecimalValue(self, head: ListNode) -> int:
+        rec = 0
+        while head != None:  
+            rec = rec * 2 + head.val # 相当于rec = rec<<1 | head.val
+            head = head.next
+        return rec
