@@ -2,7 +2,7 @@ appdirs==1.4.4
 dukpy==0.2.3
 future==0.18.2
 javascripthon==0.11
-Jinja2==2.11.2
+Jinja2==2.11.3
 jupyter-echarts-pypkg==0.1.2
 lml==0.0.2
 macropy3==1.1.0b2
